@@ -38,7 +38,8 @@ export function renderSessionLine(ctx: RenderContext): string {
   const planName = showUsage ? ctx.usageData?.planName : undefined;
   const hasApiKey = !!process.env.ANTHROPIC_API_KEY;
   const billingLabel = showUsage ? (planName ?? (hasApiKey ? red('API') : undefined)) : undefined;
-  const planDisplay = providerLabel ?? billingLabel;
+  const showPlanInModel = display?.showPlanInModel !== false;
+  const planDisplay = showPlanInModel ? (providerLabel ?? billingLabel) : providerLabel;
   const modelDisplay = planDisplay ? `${model} | ${planDisplay}` : model;
 
   if (display?.showModel !== false && display?.showContextBar !== false) {
@@ -162,9 +163,10 @@ export function renderSessionLine(ctx: RenderContext): string {
         const fiveHourReset = formatResetTime(ctx.usageData.fiveHourResetAt);
 
         const usageBarEnabled = display?.usageBarEnabled ?? true;
+        const showUsageWindow = display?.showUsageWindow !== false;
         const fiveHourPart = usageBarEnabled
           ? (fiveHourReset
-              ? `${quotaBar(fiveHour ?? 0, 10, colors)} ${fiveHourDisplay} (${fiveHourReset} / 5h)`
+              ? `${quotaBar(fiveHour ?? 0, 10, colors)} ${fiveHourDisplay} (${fiveHourReset}${showUsageWindow ? ' / 5h' : ''})`
               : `${quotaBar(fiveHour ?? 0, 10, colors)} ${fiveHourDisplay}`)
           : (fiveHourReset
               ? `5h: ${fiveHourDisplay} (${fiveHourReset})`
@@ -176,7 +178,7 @@ export function renderSessionLine(ctx: RenderContext): string {
           const sevenDayReset = formatResetTime(ctx.usageData.sevenDayResetAt);
           const sevenDayPart = usageBarEnabled
             ? (sevenDayReset
-                ? `${quotaBar(sevenDay, 10, colors)} ${sevenDayDisplay} (${sevenDayReset} / 7d)`
+                ? `${quotaBar(sevenDay, 10, colors)} ${sevenDayDisplay} (${sevenDayReset}${showUsageWindow ? ' / 7d' : ''})`
                 : `${quotaBar(sevenDay, 10, colors)} ${sevenDayDisplay}`)
             : (sevenDayReset
                 ? `7d: ${sevenDayDisplay} (${sevenDayReset})`

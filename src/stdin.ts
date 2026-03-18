@@ -91,7 +91,8 @@ export function getBufferedPercent(stdin: StdinData): number {
 export function getModelName(stdin: StdinData): string {
   const displayName = stdin.model?.display_name?.trim();
   if (displayName) {
-    return displayName;
+    // Strip parenthetical context info like "(1M context)" for a shorter display
+    return displayName.replace(/\s*\([^)]*context[^)]*\)/i, '');
   }
 
   const modelId = stdin.model?.id?.trim();
