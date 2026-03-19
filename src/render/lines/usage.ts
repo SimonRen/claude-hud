@@ -96,15 +96,13 @@ function formatResetTime(resetAt: Date | null): string {
   const diffMs = resetAt.getTime() - now.getTime();
   if (diffMs <= 0) return '';
 
-  const diffMins = Math.ceil(diffMs / 60000);
-  if (diffMins < 60) return `${diffMins}m`;
+  const diffMins = diffMs / 60000;
+  if (diffMins < 60) return `${Math.ceil(diffMins)}m`;
 
-  const hours = Math.floor(diffMins / 60);
-  const mins = diffMins % 60;
-
+  const hours = diffMins / 60;
   if (hours >= 24) {
-    return `${Math.ceil(hours / 24)}d`;
+    return `${(hours / 24).toFixed(1)}d`;
   }
 
-  return `${hours}h`;
+  return `${hours.toFixed(1)}h`;
 }
