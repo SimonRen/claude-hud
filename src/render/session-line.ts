@@ -277,11 +277,8 @@ function formatResetTime(resetAt: Date | null): string {
   const mins = diffMins % 60;
 
   if (hours >= 24) {
-    const days = Math.floor(hours / 24);
-    const remHours = hours % 24;
-    if (remHours > 0) return `${days}d ${remHours}h`;
-    return `${days}d`;
+    return `${Math.floor(hours / 24)}d`;
   }
 
-  return mins > 0 ? `${hours}h ${mins}m` : `${hours}h`;
+  return `${hours}h`;
 }
