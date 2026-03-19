@@ -23,7 +23,7 @@ export function renderSessionLine(ctx: RenderContext): string {
   }
 
   const colors = ctx.config?.colors;
-  const bar = coloredBar(percent, 10, colors);
+  const bar = coloredBar(percent, 5, colors);
 
   const parts: string[] = [];
   const display = ctx.config?.display;
@@ -166,8 +166,8 @@ export function renderSessionLine(ctx: RenderContext): string {
         const showUsageWindow = display?.showUsageWindow !== false;
         const fiveHourPart = usageBarEnabled
           ? (fiveHourReset
-              ? `${quotaBar(fiveHour ?? 0, 10, colors)} ${fiveHourDisplay} (${fiveHourReset}${showUsageWindow ? ' / 5h' : ''})`
-              : `${quotaBar(fiveHour ?? 0, 10, colors)} ${fiveHourDisplay}`)
+              ? `${quotaBar(fiveHour ?? 0, 5, colors)} ${fiveHourDisplay} (${fiveHourReset}${showUsageWindow ? ' / 5h' : ''})`
+              : `${quotaBar(fiveHour ?? 0, 5, colors)} ${fiveHourDisplay}`)
           : (fiveHourReset
               ? `5h: ${fiveHourDisplay} (${fiveHourReset})`
               : `5h: ${fiveHourDisplay}`);
@@ -178,8 +178,8 @@ export function renderSessionLine(ctx: RenderContext): string {
           const sevenDayReset = formatResetTime(ctx.usageData.sevenDayResetAt);
           const sevenDayPart = usageBarEnabled
             ? (sevenDayReset
-                ? `${quotaBar(sevenDay, 10, colors)} ${sevenDayDisplay} (${sevenDayReset}${showUsageWindow ? ' / 7d' : ''})`
-                : `${quotaBar(sevenDay, 10, colors)} ${sevenDayDisplay}`)
+                ? `${quotaBar(sevenDay, 5, colors)} ${sevenDayDisplay} (${sevenDayReset}${showUsageWindow ? ' / 7d' : ''})`
+                : `${quotaBar(sevenDay, 5, colors)} ${sevenDayDisplay}`)
             : (sevenDayReset
                 ? `7d: ${sevenDayDisplay} (${sevenDayReset})`
                 : `7d: ${sevenDayDisplay}`);
